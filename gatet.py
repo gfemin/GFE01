@@ -65,7 +65,7 @@ def Tele(ccx):
 		'wpfs-form-get-parameters': '%7B%7D',
 		'wpfs-custom-amount-unique': '0.5',
 		'wpfs-custom-input[]': 'Min Thant',
-		'wpfs-card-holder-email': 'minthantshin.virus11@gmail.com',
+		'wpfs-card-holder-email': 'minthantshin.super111@gmail.com',
 		'wpfs-card-holder-name': 'Min Thant',
 		'wpfs-stripe-payment-method-id': f'{pm}',
 	}
