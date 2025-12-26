@@ -163,4 +163,19 @@ def menu_callback(call):
     with open("stop.stop", "w") as file:
         pass
 
-bot.polling()
+# ===== SAFE POLLING (REPLACE bot.polling()) =====
+import telebot.apihelper as apihelper
+
+apihelper.REQUEST_TIMEOUT = 30
+
+while True:
+    try:
+        bot.polling(
+            non_stop=True,
+            timeout=20,
+            long_polling_timeout=20
+        )
+    except Exception as e:
+        print("Polling error:", e)
+        time.sleep(5)
+# ===============================================
