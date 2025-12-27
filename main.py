@@ -84,17 +84,17 @@ def main(message):
 
 • <code>{cc.strip()}</code>
 
-• sᴛᴀᴛᴜs  ➜ <code>{last}</code>
+🟢 sᴛᴀᴛᴜs  ➜ <code>{last}</code>
 
-• ᴄʜᴀʀɢᴇᴅ  ➜ <code>[ {ch} ]</code>
+💳 ᴄʜᴀʀɢᴇᴅ  ➜ <code>[ {ch} ]</code>
 
-• ᴄᴄɴ ➜ <code>[ {ccn} ]</code>
+🔐 ᴄᴄɴ ➜ <code>[ {ccn} ]</code>
 
-• ᴄᴠᴠ ➜ <code>[ {cvv} ]</code>
+🔐 ᴄᴠᴠ ➜ <code>[ {cvv} ]</code>
 
-• ʟᴏᴡ ғᴜɴᴅs ➜ <code>[ {lowfund} ]</code>
+⚠️ ʟᴏᴡ ғᴜɴᴅs ➜ <code>[ {lowfund} ]</code>
 
-• ᴅᴇᴄʟɪɴᴇᴅ ➜ <code>[ {dd} ]</code>
+📊 ᴅᴇᴄʟɪɴᴇᴅ ➜ <code>[ {dd} ]</code>
 
 • ᴛᴏᴛᴀʟ ➜ <code>[ {total} ]</code>
 """
