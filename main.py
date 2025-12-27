@@ -35,7 +35,7 @@ def main(message):
     cvv = 0
     lowfund = 0
 
-    ko = bot.reply_to(message, "CHECKING....⌛").message_id
+    ko = bot.reply_to(message, "𝐏𝐫𝐨𝐜𝐞𝐬𝐬 𝐑𝐮𝐧𝐧𝐢𝐧𝐠 !").message_id
     ee = bot.download_file(bot.get_file(message.document.file_id).file_path)
 
     with open("combo.txt", "wb") as w:
@@ -83,26 +83,26 @@ def main(message):
                 view_text = f"""\
 • <code>{cc.strip()}</code>
 
-• STATUS ➜ <code>{last}</code>
+• sᴛᴀᴛᴜs  ➜ <code>{last}</code>
 
-• CHARGED ➜ <code>[ {ch} ]</code>
+• ᴄʜᴀʀɢᴇᴅ  ➜ <code>[ {ch} ]</code>
 
-• CCN ➜ <code>[ {ccn} ]</code>
+• ᴄᴄɴ ➜ <code>[ {ccn} ]</code>
 
-• CVV ➜ <code>[ {cvv} ]</code>
+• ᴄᴠᴠ ➜ <code>[ {cvv} ]</code>
 
-• LOW FUNDS ➜ <code>[ {lowfund} ]</code>
+• ʟᴏᴡ ғᴜɴᴅs ➜ <code>[ {lowfund} ]</code>
 
-• DECLINED ➜ <code>[ {dd} ]</code>
+• ᴅᴇᴄʟɪɴᴇᴅ ➜ <code>[ {dd} ]</code>
 
-• TOTAL ➜ <code>[ {total} ]</code>
+• ᴛᴏᴛᴀʟ ➜ <code>[ {total} ]</code>
 """
 
                 # ===== STOP BUTTON ONLY =====
                 markup = types.InlineKeyboardMarkup(row_width=1)
                 markup.add(
                     types.InlineKeyboardButton(
-                        "[ STOP ]",
+                        "⛔ sᴛᴏᴘ ⚠️",
                         callback_data="stop"
                     )
                 )
