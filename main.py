@@ -17,7 +17,7 @@ def start(message):
             "You cannot use the bot to contact developers to purchase a bot subscription @Rusisvirus"
         )
         return
-    bot.reply_to(message, "Send the file now")
+    bot.reply_to(message, "𝐒𝐞𝐧𝐝 𝐭𝐡𝐞 𝐟𝐢𝐥𝐞 𝐧𝐨𝐰❤️")
 
 @bot.message_handler(content_types=["document"])
 def main(message):
@@ -81,6 +81,7 @@ def main(message):
 
                 # ===== VIEW TEXT (NO BUTTONS) =====
                 view_text = f"""\
+
 • <code>{cc.strip()}</code>
 
 • sᴛᴀᴛᴜs  ➜ <code>{last}</code>
