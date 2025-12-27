@@ -29,7 +29,7 @@ def main(message):
     cvv = 0
     lowfund = 0
     
-    ko = bot.reply_to(message, "CHECKING....⌛").message_id
+    ko = bot.reply_to(message, "𝐒𝐭𝐚𝐫𝐭𝐢𝐧𝐠 𝐍𝐨𝐰! ❤️").message_id
     ee = bot.download_file(bot.get_file(message.document.file_id).file_path)
     
     with open("combo.txt", "wb") as w:
