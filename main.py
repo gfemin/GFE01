@@ -42,7 +42,7 @@ def main(message):
                 current_dir = os.getcwd()
                 for filename in os.listdir(current_dir):
                     if filename.endswith(".stop"):
-                        bot.edit_message_text(chat_id=message.chat.id, message_id=ko, text='STOP ✅\nBOT BY ➜ @Rusisvirus')
+                        bot.edit_message_text(chat_id=message.chat.id, message_id=ko, text='𝑺𝑻𝑶𝑷 ✅\n𝑩𝒐𝒕 𝑩𝒚 ➜ @Rusisvirus')
                         os.remove('stop.stop')
                         return
                 
@@ -95,12 +95,12 @@ def main(message):
                 end_time = time.time()
                 execution_time = end_time - start_time
                 
-                bot.edit_message_text(chat_id=message.chat.id, message_id=ko, text='''Wait For Processing   
-by ➜ @Rusisvirus ''', reply_markup=mes)
+                bot.edit_message_text(chat_id=message.chat.id, message_id=ko, text='''𝑾𝒂𝒊𝒕 𝑭𝒐𝒓 𝑷𝒓𝒐𝒄𝒆𝒔𝒔𝒊𝒏𝒈     
+𝑩𝒚 ➜ @Rusisvirus ''', reply_markup=mes)
                 
                 msg = f''' 
 𝐂𝐀𝐑𝐃: <code>{cc}</code>
-𝐑𝐞𝐬𝐩𝐨𝐧𝐬𝐞: <code>Hit $1.00 🔥</code>
+𝐑𝐞𝐬𝐩𝐨𝐧𝐬𝐞: <code>𝚂𝚞𝚌𝚌𝚎𝚜𝚜𝚏𝚞𝚕!🥵</code>
 
 𝐁𝐢𝐧 𝐈𝐧𝐟𝐨: <code>{cc[:6]}-{card_type} - {brand}</code>
 𝐁𝐚𝐧𝐤: <code>{bank}</code>
@@ -124,7 +124,7 @@ by ➜ @Rusisvirus ''', reply_markup=mes)
                 elif 'funds' in last:
                     msg = f'''			
 𝐂𝐀𝐑𝐃: <code>{cc}</code>
-𝐑𝐞𝐬𝐩𝐨𝐧𝐬𝐞: <code>Insufficient funds 🔥</code>
+𝐑𝐞𝐬𝐩𝐨𝐧𝐬𝐞: <code>𝙸𝚗𝚜𝚞𝚏𝚏𝚒𝚌𝚒𝚎𝚗𝚝 𝚏𝚞𝚗𝚍𝚜 😂</code>
 
 𝐁𝐢𝐧 𝐈𝐧𝐟𝐨: <code>{cc[:6]}-{card_type} - {brand}</code>
 𝐁𝐚𝐧𝐤: <code>{bank}</code>
@@ -138,7 +138,7 @@ by ➜ @Rusisvirus ''', reply_markup=mes)
                 elif 'The payment needs additional action before completion!' in last:
                     msg = f'''			
 𝐂𝐀𝐑𝐃: <code>{cc}</code>
-𝐑𝐞𝐬𝐩𝐨𝐧𝐬𝐞: <code>3ds ✅</code>
+𝐑𝐞𝐬𝐩𝐨𝐧𝐬𝐞: <code>𝟹𝙳𝚂 👍</code>
 
 𝐁𝐢𝐧 𝐈𝐧𝐟𝐨: <code>{cc[:6]}-{card_type} - {brand}</code>
 𝐁𝐚𝐧𝐤: <code>{bank}</code>
@@ -156,7 +156,7 @@ by ➜ @Rusisvirus ''', reply_markup=mes)
     except Exception as e:
         print(e)
     
-    bot.edit_message_text(chat_id=message.chat.id, message_id=ko, text='CHECKED ✅\nBOT BY ➜ @Rusisvirus')
+    bot.edit_message_text(chat_id=message.chat.id, message_id=ko, text='𝑪𝒉𝒆𝒄𝒌𝒊𝒏𝒈 𝑫𝒐𝒏𝒆!\n𝑩𝒐𝒕 𝑩𝒚 ➜ @Rusisvirus')
 
 @bot.callback_query_handler(func=lambda call: call.data == 'stop')
 def menu_callback(call):
