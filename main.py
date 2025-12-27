@@ -80,17 +80,22 @@ def main(message):
                 execution_time = end_time - start_time
 
                 # ===== VIEW TEXT (NO BUTTONS) =====
-                view_text = f"""
-<b>Wait For Processing</b>
-By ➜ @Rusisvirus
+                view_text = f"""\
+• <code>{cc.strip()}</code>
 
 • STATUS ➜ <code>{last}</code>
-• CHARGED ➜ <code>{ch}</code>
-• CCN ➜ <code>{ccn}</code>
-• CVV ➜ <code>{cvv}</code>
-• LOW FUNDS ➜ <code>{lowfund}</code>
-• DECLINED ➜ <code>{dd}</code>
-• TOTAL ➜ <code>{total}</code>
+
+• CHARGED ➜ <code>[ {ch} ]</code>
+
+• CCN ➜ <code>[ {ccn} ]</code>
+
+• CVV ➜ <code>[ {cvv} ]</code>
+
+• LOW FUNDS ➜ <code>[ {lowfund} ]</code>
+
+• DECLINED ➜ <code>[ {dd} ]</code>
+
+• TOTAL ➜ <code>[ {total} ]</code>
 """
 
                 # ===== STOP BUTTON ONLY =====
