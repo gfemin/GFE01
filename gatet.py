@@ -3,11 +3,14 @@ import random
 import string
 
 # ==========================================
-# 👇 PROXY အချက်အလက်များ (မင်းပေးတာ ထည့်ထားပြီးပါပြီ)
+# 👇 PROXY SETTINGS (Singapore Proxy Updated 🇸🇬)
 # ==========================================
 PROXY_HOST = 'geo.g-w.info'
 PROXY_PORT = '10080'
-PROXY_USER = 'user-RWTL64GEW8jkTBty-type-residential-session-1phmk2fm-country-US-city-New_York-rotation-15'
+
+# 🔥 မင်းပေးတဲ့ Singapore Proxy User String အသစ်
+PROXY_USER = 'user-RWTL64GEW8jkTBty-type-residential-session-z0lzlwrj-country-SG-rotation-15'
+
 PROXY_PASS = 'EJJT0uWaSUv4yUXJ'
 # ==========================================
 
@@ -29,7 +32,7 @@ def Tele(ccx):
         if "20" in yy:  # Mo3gza
             yy = yy.split("20")[1]
 
-        # 🔥 Random Email Logic 🔥
+        # 🔥 Random Email Logic
         letters = string.ascii_lowercase + string.digits
         random_name = ''.join(random.choice(letters) for i in range(10))
         random_email = f"{random_name}@gmail.com"
@@ -65,13 +68,13 @@ def Tele(ccx):
             'https://api.stripe.com/v1/payment_methods',
             headers=headers,
             data=data,
-            proxies=proxies, # 🔥 Proxy သုံးထားသည်
-            timeout=20
+            proxies=proxies, # 🔥 Proxy Active
+            timeout=30 # Timeout ကို 30s တိုးထားတယ် (SG မို့ ပိုငြိမ်အောင်)
         )
 
         # JSON Error Catch
         if 'id' not in response.json():
-            return "IP Blocked or Invalid Card (PM Failed) ❌"
+            return "Proxy Blocked or Invalid Card (PM Failed) ❌"
             
         pm = response.json()['id']
 
@@ -110,8 +113,8 @@ def Tele(ccx):
             'https://www.benidormholidays.com/wp-admin/admin-ajax.php',
             headers=headers,
             data=data,
-            proxies=proxies, # 🔥 Proxy သုံးထားသည်
-            timeout=20
+            proxies=proxies, # 🔥 Proxy Active
+            timeout=30 # Timeout ကို 30s တိုးထားတယ်
         )
         
         # HTML/Cloudflare Error Catch
