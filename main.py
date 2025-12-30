@@ -13,7 +13,7 @@ bot = telebot.TeleBot(token, parse_mode="HTML")
 ALLOWED_IDS = [
     '1915369904',    # Owner
     '6506125689',     # User 2
-    '',     # User 3
+    '1163809291',     # User 3
     ''      # User 4
 ]
 # ==========================================
