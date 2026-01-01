@@ -99,7 +99,7 @@ def Tele(ccx):
             'action': 'wp_full_stripe_inline_payment_charge',
             'wpfs-form-name': 'payment_form',
             'wpfs-form-get-parameters': '%7B%7D',
-            'wpfs-custom-amount-unique': '1.5',
+            'wpfs-custom-amount-unique': '0.5',
             'wpfs-custom-input[]': [
                 'Min Thant', # နာမည်ကတော့ မူရင်းအတိုင်းထားထားတယ်
                 '19',
