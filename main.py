@@ -152,15 +152,15 @@ def run_checker(message):
                 print(f"{chat_id} : {cc} -> {last}")
                 
                 # 🔥 SAVE TO FILE LOGIC 🔥
-                if 'Payment Successful' in last or 'funds' in last:
+                if 'successful' in last or 'funds' in last:
                     with open("lives.txt", "a") as f:
                         f.write(f"{cc} - {last} - {bank} ({country})\n")
 
-                if 'Payment Successful' in last:
+                if 'successful' in last:
                     ch += 1
                     msg = f''' 
 𝐂𝐀𝐑𝐃: <code>{cc}</code>
-𝐑𝐞𝐬𝐩𝐨𝐧𝐬𝐞: <code>𝚂𝚞𝚌𝚌𝚎𝚜𝚜𝚏𝚞𝚕!🥵</code>
+𝐑𝐞𝐬𝐩𝐨𝐧𝐬𝐞: <code>𝗣𝗮𝘆𝗺𝗲𝗻𝘁 𝗦𝘂𝗰𝗰𝗲𝘀𝘀𝗳𝘂𝗹 ✅</code>
 
 𝐁𝐢𝐧 𝐈𝐧𝐟𝐨: <code>{cc[:6]}-{card_type} - {brand}</code>
 𝐁𝐚𝐧𝐤: <code>{bank}</code>
@@ -181,7 +181,7 @@ def run_checker(message):
                     lowfund += 1
                     msg = f'''			
 𝐂𝐀𝐑𝐃: <code>{cc}</code>
-𝐑𝐞𝐬𝐩𝐨𝐧𝐬𝐞: <code>𝙸𝚗𝚜𝚞𝚏𝚏𝚒𝚌𝚒𝚎𝚗𝚝 𝚏𝚞𝚗𝚍𝚜 😂</code>
+𝐑𝐞𝐬𝐩𝐨𝐧𝐬𝐞: <code>𝗜𝗻𝘀𝘂𝗳𝗳𝗶𝗰𝗶𝗲𝗻𝘁 𝗙𝘂𝗻𝗱𝘀 ⛔</code>
 
 𝐁𝐢𝐧 𝐈𝐧𝐟𝐨: <code>{cc[:6]}-{card_type} - {brand}</code>
 𝐁𝐚𝐧𝐤: <code>{bank}</code>
@@ -195,7 +195,7 @@ def run_checker(message):
                     cvv += 1
                     msg = f'''			
 𝐂𝐀𝐑𝐃: <code>{cc}</code>
-𝐑𝐞𝐬𝐩𝐨𝐧𝐬𝐞: <code>𝟹𝙳𝚂 👍</code>
+𝐑𝐞𝐬𝐩𝐨𝐧𝐬𝐞: <code>𝟑𝗗 𝗿𝗲𝗾𝘂𝗶𝗿𝗲𝘀_𝗮𝗰𝘁𝗶𝗼𝗻 ⚠️</code>
 
 𝐁𝐢𝐧 𝐈𝐧𝐟𝐨: <code>{cc[:6]}-{card_type} - {brand}</code>
 𝐁𝐚𝐧𝐤: <code>{bank}</code>
