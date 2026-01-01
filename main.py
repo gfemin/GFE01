@@ -143,7 +143,7 @@ def run_checker(message):
                 markup = types.InlineKeyboardMarkup(row_width=1)
                 markup.add(types.InlineKeyboardButton("⛔ sᴛᴏᴘ ⚠️", callback_data="stop"))
                 
-                is_hit = 'Payment Successful' in last or 'funds' in last or 'security code' in last
+                is_hit = 'successful' in last or 'funds' in last or 'security code' in last
                 
                 if is_hit or (dd % 15 == 0):
                     bot.edit_message_text(chat_id=chat_id, message_id=ko, text=view_text, reply_markup=markup)
