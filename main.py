@@ -88,7 +88,7 @@ def run_checker(message):
             for cc in lino:
                 cc = cc.strip()
                 
-                # ===== STOP CHECK =====
+                # ===== STOP CHECK (1) =====
                 if os.path.exists(stop_file):
                     bot.edit_message_text(chat_id=chat_id, message_id=ko, text='𝑺𝑻𝑶𝑷 ✅\n𝑩𝒐𝒕 𝑩𝒚 ➜ @Rusisvirus')
                     os.remove(stop_file)
@@ -106,6 +106,13 @@ def run_checker(message):
                 country = data.get('country_name', 'Unknown')
                 country_flag = data.get('country_flag', '')
                 bank = data.get('bank', 'Unknown')
+
+                # ===== STOP CHECK (2) - Optimization for faster stop =====
+                if os.path.exists(stop_file):
+                    bot.edit_message_text(chat_id=chat_id, message_id=ko, text='𝑺𝑻𝑶𝑷 ✅\n𝑩𝒐𝒕 𝑩𝒚 ➜ @Rusisvirus')
+                    os.remove(stop_file)
+                    if os.path.exists(file_name): os.remove(file_name)
+                    return
                 
                 start_time = time.time()
                 
@@ -143,20 +150,24 @@ def run_checker(message):
                 markup = types.InlineKeyboardMarkup(row_width=1)
                 markup.add(types.InlineKeyboardButton("⛔ sᴛᴏᴘ ⚠️", callback_data="stop"))
                 
-                is_hit = 'successful' in last or 'funds' in last or 'security code' in last
+                # 🔥 Added 'Donation Successful' to be safe
+                is_hit = 'Payment Successful' in last or 'Donation Successful' in last or 'funds' in last or 'security code' in last
                 
                 if is_hit or (dd % 15 == 0):
-                    bot.edit_message_text(chat_id=chat_id, message_id=ko, text=view_text, reply_markup=markup)
+                    try:
+                        bot.edit_message_text(chat_id=chat_id, message_id=ko, text=view_text, reply_markup=markup)
+                    except Exception:
+                        pass # Ignore editing errors
                 
                 # ===== HIT SENDER & SAVER =====
                 print(f"{chat_id} : {cc} -> {last}")
                 
                 # 🔥 SAVE TO FILE LOGIC 🔥
-                if 'successful' in last or 'funds' in last:
+                if 'Payment Successful' in last or 'Donation Successful' in last or 'funds' in last:
                     with open("lives.txt", "a") as f:
                         f.write(f"{cc} - {last} - {bank} ({country})\n")
 
-                if 'successful' in last:
+                if 'Payment Successful' in last or 'Donation Successful' in last:
                     ch += 1
                     msg = f''' 
 𝐂𝐀𝐑𝐃: <code>{cc}</code>
@@ -172,10 +183,38 @@ def run_checker(message):
                     
                 elif 'Your card does not support this type of purchase' in last:
                     cvv += 1
+                    # Added notification for CVV
+                    msg = f''' 
+𝐂𝐀𝐑𝐃: <code>{cc}</code>
+𝐑𝐞𝐬𝐩𝐨𝐧𝐬𝐞: <code>𝐂𝐕𝐕 𝐌𝐢𝐬𝐦𝐚𝐭𝐜𝐡 ⚠️</code>
+
+𝐁𝐢𝐧 𝐈𝐧𝐟𝐨: <code>{cc[:6]}-{card_type} - {brand}</code>
+𝐁𝐚𝐧𝐤: <code>{bank}</code>
+𝐂𝐨𝐮𝐧𝐭𝐫𝐲: <code>{country} - {country_flag}</code>
+
+𝐓𝐢𝐦𝐞: <code>1{"{:.1f}".format(execution_time)} second</code> 
+𝐁𝐨𝐭 𝐀𝐛𝐨𝐮𝐭: @Rusisvirus'''
+                    bot.reply_to(message, msg)
                                     
                 elif 'security code is incorrect' in last or 'security code is invalid' in last:
                     ccn += 1
-                    bot.edit_message_text(chat_id=chat_id, message_id=ko, text=view_text, reply_markup=markup)
+                    # Added notification for CCN
+                    msg = f''' 
+𝐂𝐀𝐑𝐃: <code>{cc}</code>
+𝐑𝐞𝐬𝐩𝐨𝐧𝐬𝐞: <code>𝐂𝐂𝐍 𝐋𝐢𝐯𝐞 ✅</code>
+
+𝐁𝐢𝐧 𝐈𝐧𝐟𝐨: <code>{cc[:6]}-{card_type} - {brand}</code>
+𝐁𝐚𝐧𝐤: <code>{bank}</code>
+𝐂𝐨𝐮𝐧𝐭𝐫𝐲: <code>{country} - {country_flag}</code>
+
+𝐓𝐢𝐦𝐞: <code>1{"{:.1f}".format(execution_time)} second</code> 
+𝐁𝐨𝐭 𝐀𝐛𝐨𝐮𝐭: @Rusisvirus'''
+                    bot.reply_to(message, msg)
+                    
+                    try:
+                        bot.edit_message_text(chat_id=chat_id, message_id=ko, text=view_text, reply_markup=markup)
+                    except:
+                        pass
                     
                 elif 'funds' in last:
                     lowfund += 1
