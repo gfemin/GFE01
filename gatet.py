@@ -11,7 +11,7 @@ PROXY_HOST = 'geo.g-w.info'
 PROXY_PORT = '10080'
 
 # 🔥 မင်းရဲ့ Proxy User/Pass (ဒီအတိုင်းထားလိုက်တယ်)
-PROXY_USER = 'user-RWTL64GEW8jkTBty-type-residential-session-4t8p24ud-country-US-city-Austin-rotation-15'
+PROXY_USER = 'user-RWTL64GEW8jkTBty-type-residential-session-557n3etx-country-GB-city-Manchester-rotation-15'
 PROXY_PASS = 'EJJT0uWaSUv4yUXJ'
 
 # Proxy String တည်ဆောက်ခြင်း
